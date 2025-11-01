@@ -90,8 +90,11 @@ Ejemplo:
 ![8080](images/8080.png)
 
 >🔌 **Proxy**
->Los proxies son servidores intermediarios que actuan como una puerta de enlace entre el dispositivo e internet redirigiendo las solicitudes. En lugar de conectarse directamente con un sitio web pasa primero al servidor proxy que puede filtrar contenido, mejorar la seguridad, enmascarar la dirección IP y almacenar el caché para acelerar la carga. 
+>Los proxies son servidores intermediarios que actuan como una puerta de enlace entre el dispositivo e internet redirigiendo las solicitudes. En lugar de conectarse directamente con un sitio web pasa primero al servidor proxy que puede filtrar contenido, mejorar la seguridad, enmascarar la dirección IP y almacenar el caché para acelerar la carga.
 
+>  #### 👁️ ¿Se pueden filtrar conexiones en el puerto 80?
+> Afortunadamente **sí**. Esto se hace a través de Firewalls, Routers, Sistemas de detección y prevención de intrusos (IDS/IPS) y aplicaciones de seguridad en el servidor. 
+> Un firewall puede bloquear todo el tráfico entrante al puerto 80, puede permitir sólo tráfico hacia ciertas páginas, bloquear las IP sospechosas y redirigir al puerto 443.
 ### 🚢 Otros puertos conocidos
 
 
@@ -121,3 +124,45 @@ Ejemplo:
 El **puerto 443** es el puerto estándar para HTTPS (HyperText Transfer Protocol Secure), que es la versión cifrada del protocolo HTTP.
 Su función principal es permitir que los navegadores web y los servidores se comuniquen de forma privada y protegida.
 
+------------------------------------
+
+## **🔹 3. Códigos de estado de respuesta HTTP**
+
+Los códigos de estado HTTP son códigos numéricos que envía un servidor al navegador para indicar el resultado de una solicitud.
+Son parte del funcionamiento web y ayudan a entender si una página se cargó correctamente (qué ocurrió con la solicitud).
+
+Son cinco clases de respuesta:
+1️⃣ Respuestas informativas (100–199),
+2️⃣ Respuestas satisfactorias (200–299),
+3️⃣ Redirecciones (300–399),
+4️⃣ Errores de los clientes (400–499),
+5️⃣ y errores de los servidores (500–599).
+
+
+### 🏷️ Categorías de Códigos de Estado HTTP
+
+| Categoría | Rango | Significado | Ejemplos comunes | Explicación breve |
+|----------|-------|-------------|-----------------|------------------|
+| **1xx** | 100–199 | Informativos ℹ️ | 100 Continue, 101 Switching Protocols | Indican que la solicitud se está procesando y el cliente debe esperar |
+| **2xx** | 200–299 | Éxito ✅ | 200 OK, 201 Created, 204 No Content | Confirmación de que la solicitud fue recibida y procesada correctamente |
+| **3xx** | 300–399 | Redirección 🔁 | 301 Moved Permanently, 302 Found, 304 Not Modified | El cliente debe realizar una acción adicional (normalmente seguir otra URL) |
+| **4xx** | 400–499 | Error del cliente ⚠️ | 400 Bad Request, 403 Forbidden, 404 Not Found | El cliente hizo una solicitud incorrecta o no tiene permisos |
+| **5xx** | 500–599 | Error del servidor ❌ | 500 Internal Server Error, 502 Bad Gateway, 503 Service Unavailable | El servidor falló al procesar la solicitud |
+
+### 🩺 **200, 404 y 500** ¿Por qué debemos conocer estos tres códigos en especial?
+
+Conocer estos tres código es fundamental ya que nos informan sobre el estado de la comunicación entre el cliente y el servidor, podemos saber que pasó con la solicitud. De esta manera podemos **diagnosticar** si la solicitud que exitosa (200 OK), si el problema es la falta del recurso solicitado (404 Not Found), o si el problema esta en el servidor (500 Internel Server Error) y resolver los problemas de forma eficiente.
+
+### 🛠️ ¿Cómo los usaría para diagnosticar problemas en una API?
+
+**220 OK:**
+Es una señal de que salió todo bien, la solicitud fue manejada correctamente y el resultado es el esperado. La API responde bien.
+
+**404 Not Found:**
+Señala que el recurso no existe en la dirección especificada. El error no es del servidor sino que el cliente solicitó algo que ya no esta o nunca existió. Aqui podemos tratar de identificar si el problema proviene de una URL mal escrita, si el endpoint(*) realmente existe o si el recurso fue eliminado.
+
+**500 Internel Server Error:**
+En esta señal ocurre un problema generico en el servidor impidiendo que se procese la solicitud. No hay detalles específicos.
+Aquí podriamos tratar de averiguar si hay un error de programación, un problema en la configuración o errores en la conexión en la base de datos.
+
+>(*) Un endpoint es una dirección específica dentro de una API a la que un cliente puede enviar solicitudes para obtener o enviar datos.
