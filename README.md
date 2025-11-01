@@ -1,6 +1,6 @@
 🏁 **Desafío de Investigación**
 ============================
---------------------------------
+
 
 ## **🔹 1. Diferencia entre HTTP y HTTPS**
 ![HTTP](images/http.png)
@@ -47,3 +47,77 @@ Los sitios web sin certificado SSL/TLS funcionaran con HTTP transfiriendo datos 
 De todas formas, cuando un sitio no utiliza HTTPS, los navegadores suelen mostrar advertencias como “Sitio no seguro”, haciendo que la gente evite los sitios que no son seguros.
 
 ------------------------------------
+## **🔹 2. Puertos de comunicación**
+
+### 🔌 ¿Qué es un puerto de comunicación y por qué es importante para HTTP?
+
+Un puerto es un punto virtual en el que comienzan y terminan las conexiones de red. Los puertos estan basados en software y los gestiona el sistema operativo de los computadores. 
+Cada puerto esta asociado a un proceso o servicio específico, permitiendo distinguir los diversos tipos de tráfico como correo o páginas web aunque lleguen desde una misma conexión de internet. 
+Los puertos estan estandarizados en todos los dispositivos que se conectan a redes, cada uno tiene un número asignado.
+
+> **💡 Explicado de otra forma:** 
+>
+>Tu computador es como un **edificio gigante de departamentos**:
+>
+> - La **dirección del edificio** = la **IP** de tu computador. 
+> - Cada **departamento** = un **puerto** (0 a 65535), donde vive un servicio o aplicación.
+>
+> **Ejemplos de departamentos:**
+> - 🕸️ **80** → Servidor web (HTTP)  
+> - ✉️ **25** → Correo electrónico (SMTP)  
+> - 📂 **20 y 21** → Transferencia de archivos (FTP)  
+> - 🌐 Departamentos para tus propios servidores locales (8080, 8081…)
+>
+> **Reglas de ocupación:**
+> - **0-1023** → “departamentos principales”, para servicios estándar, requieren permisos especiales.  
+> - **1024-49151** → “departamentos registrados”, usados por aplicaciones comunes.  
+> - **49152-65535** → “departamentos dinámicos”, ocupados temporalmente como habitaciones de Airbnb.
+>
+> **Cómo funciona:**
+> Cuando llega una carta (mensaje) se envía a la IP del edificio **y al departamento correcto**.  
+> Si el departamento está ocupado por la aplicación correcta, la carta se procesa; si no, se ignora.  
+> Los puertos no estándar se usan a veces por comodidad o seguridad, como poner la bóveda del banco en un departamento menos obvio.
+>
+> 💡 Todos los datos viajan por el mismo cable; el puerto solo indica **quién recibe qué**.
+
+### 🚪 Los puertos 80 y 8080
+
+El **puerto 80** es el predeterminado del protocolo HTTP y permite que los navegadores soliciten y reciban páginas web desde los servidores, aunque no ofrece seguridad porque el tráfico viaja sin cifrar. Por esto, para que la navegación sea segura se usa el puerto 443 con HTTPS.
+
+Por otro lado el **puerto 8080** se usa como una alternativa al 80, especialmente en servidores de desarrollo, aplicaciones web locales o proxies (servidores intermediarios. Más información, leer abajo) puesto que el 80 puede requerir permisos de administrador o estar ocupado. Al igual que el 80, tampoco es seguro por defecto, también usa HTTP sin cifrado, aunque es posible configurarlo para comunicaciones seguras si se necesita.
+
+Ejemplo:
+![8080](images/8080.png)
+
+>🔌 **Proxy**
+>Los proxies son servidores intermediarios que actuan como una puerta de enlace entre el dispositivo e internet redirigiendo las solicitudes. En lugar de conectarse directamente con un sitio web pasa primero al servidor proxy que puede filtrar contenido, mejorar la seguridad, enmascarar la dirección IP y almacenar el caché para acelerar la carga. 
+
+### 🚢 Otros puertos conocidos
+
+
+| Puerto | Servicio / Aplicación | Descripción |
+|--------|---------------------|-------------|
+| **20** | FTP *(File Transfer Protocol)* (Data) | Transferencia de datos en FTP |
+| **21** | FTP *(File Transfer Protocol)* (Control) | Control para transferencias FTP |
+| **22** | SSH *(Secure Shell)* | Acceso remoto **seguro** a servidores |
+| **23** | Telnet *(Telecommunication Network)* | Acceso remoto **no seguro** |
+| **25** | SMTP *(Simple Mail Transfer Protocol)* | Envío de correos electrónicos |
+| **53** | DNS *(Domain Name System)* | Traduce nombres de dominio a IP |
+| **67/68** | DHCP *(Dynamic Host Configuration Protocol)* | Asignación automática de direcciones IP |
+| **69** | TFTP *(Trivial File Transfer Protocol)* | Transferencias simples sin autenticación |
+| **80** | HTTP *(HyperText Transfer Protocol)* | Navegación web sin cifrado |
+| **110** | POP3 *(Post Office Protocol v3)* | Recepción de correos (descarga al dispositivo) |
+| **123** | NTP *(Network Time Protocol)* | Sincronización de hora entre dispositivos |
+| **143** | IMAP *(Internet Message Access Protocol)* | Gestión de correos en el servidor |
+| **443** | HTTPS *(HTTP Secure)* | Navegación web **cifrada** |
+| **3306** | MySQL *(My Structured Query Language)* | Conexiones a base de datos MySQL |
+| **3389** | RDP *(Remote Desktop Protocol)* | Escritorio remoto en Windows |
+| **5432** | PostgreSQL *(Post Ingres)* | Conexiones a base de datos PostgreSQL |
+| **6379** | Redis *(Remote Dictionary Server)* | Base de datos en memoria |
+| **8080** | HTTP Alternativo *(HyperText Transfer Protocol Alternative)* | Alternativa para desarrollo y proxies |
+
+## 🛡️ Puerto 443 - Guardián de la navegación segura
+
+El **puerto 443** es el puerto estándar para HTTPS (HyperText Transfer Protocol Secure), que es la versión cifrada del protocolo HTTP.
+Su función principal es permitir que los navegadores web y los servidores se comuniquen de forma privada y protegida.
+
