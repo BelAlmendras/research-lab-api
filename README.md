@@ -166,3 +166,38 @@ En esta señal ocurre un problema generico en el servidor impidiendo que se proc
 Aquí podriamos tratar de averiguar si hay un error de programación, un problema en la configuración o errores en la conexión en la base de datos.
 
 >(*) Un endpoint es una dirección específica dentro de una API a la que un cliente puede enviar solicitudes para obtener o enviar datos.
+
+------------------------------------
+
+## **🔹 4. Métodos HTTP utilizados en APIs RESTful**
+
+Una **API RESTful** es un tipo de interfaz de comunicación entre aplicaciones que sigue las reglas de REST *(Representational State Transfer)*.
+Permite que distintos sistemas se comuniquen a través de Internet usando HTTP, igual que los navegadores cuando visitan una página web.
+
+Permite que la aplicación pida, envíe, modifique o elimine datos de un servidor usando URL + métodos HTTP.
+
+### 🔸 ¿Cómo funciona?
+Cada recurso (usuario, producto, pedido,etc.) tiene su propia URL. 
+Se utilizan métodos HTTP para indicar la acción a realizar, los más comunes son GET (obtener datos), POST (crear datos), PUT/PATCH (actualizar datos) y DELETE (eliminar datos). Normalmente se envían en formato JSON. El servidor responde a esto con status codes (200,404,500,etc.) para indicar el resultado.
+
+| Método     | ¿Qué hace?                              | ¿Para qué se usa?        | Ejemplo                                                                                                                 |
+| ---------- | --------------------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| **GET**    | Solicita datos del servidor             | 🔍 Consultar información | GET https://pokeapi.co/api/v2/pokemon/charizard (Devuelve la info completa de Charizard: tipos, stats, habilidades…)                                                 |
+| **POST**   | Envía datos para crear un recurso nuevo | ➕ Crear                  | POST https://jsonplaceholder.typicode.com/posts Body JSON: { "title": "Pokefan", "body": "Me gusta Pikachu", "userId": 1 } (Simula la creación de un post)                            |
+| **PUT**    | Reemplaza un recurso completo existente | 🔄 Actualizar totalmente | PUT https://jsonplaceholder.typicode.com/posts/1 Body JSON: { "id": 1, "title": "Pika Team", "body": "Actualizado", "userId": 1 } (Simula actualización completa) |
+| **DELETE** | Elimina un recurso del servidor         | ❌ Borrar                 | DELETE https://jsonplaceholder.typicode.com/posts/1 (Simula un borrado del post 1)                                         |
+
+> La PokeAPI es de solo lectura por lo que no se pueden simular todos los métodos
+### 🔸 Otros métodos menos comunes
+
+| Método      | ¿Qué hace?                                        | Caso de uso | Ejemplo                                  |
+| ----------- | ------------------------------------------------- | ---------------------------------------------- | ----------- | 
+| **PATCH**   | Modifica solo una parte del recurso               | Cambiar **solo** el email del usuario          |PATCH https://jsonplaceholder.typicode.com/posts/1 Body JSON: { "title": "Nuevo título Pikachu" }|
+| **HEAD**    | Igual que GET pero **solo devuelve encabezados**  | Verificar si un recurso existe sin descargarlo |HEAD https://pokeapi.co/api/v2/pokemon/pikachu (Comprueba si Pikachu existe sin devolver body)|
+| **OPTIONS** | Pregunta al servidor qué métodos están permitidos | Crucial para **CORS (*)** en frontends web         |OPTIONS https://pokeapi.co/api/v2/pokemon/1 (Devuelve los métodos permitidos)|
+
+> **(*) CORS significa:**
+Cross-Origin Resource Sharing
+(Compartición de Recursos de Orígenes Cruzados)
+>
+>Es un mecanismo de seguridad en los navegadores que bloquea o permite que una página web pueda pedir datos a un servidor que está en otro dominio.
